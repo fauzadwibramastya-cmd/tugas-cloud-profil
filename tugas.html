@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas - Tata Kelola & Keamanan Data Cloud</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f4f7f6; color: #333; line-height: 1.6; }
+        nav { background-color: #1e3a8a; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: 600; }
+        nav a:hover { text-decoration: underline; }
+        .brand { color: #fff; font-size: 1.2em; font-weight: bold; }
+        .container { max-width: 900px; margin: 40px auto; background: white; padding: 35px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+        h1 { color: #1e3a8a; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+        h2 { color: #1d4ed8; margin-top: 30px; }
+        .card { background: #f8fafc; border-left: 4px solid #2563eb; padding: 15px 20px; margin: 15px 0; border-radius: 4px; }
+        ul { margin-top: 8px; }
+        .btn-back { display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #475569; color: white; text-decoration: none; border-radius: 6px; }
+    </style>
+</head>
+<body>
+
+    <!-- Navigasi Utama -->
+    <nav>
+        <div class="brand">Portal Tugas Cloud</div>
+        <div>
+            <a href="index.html">Beranda (Profil)</a>
+            <a href="tugas.html">Tugas Keamanan Data</a>
+        </div>
+    </nav>
+
+    <!-- Konten Tugas -->
+    <div class="container">
+        <h1>Isu Keamanan & Tata Kelola Data pada Aplikasi Cloud (SaaS)</h1>
+        <p>Dalam pengelolaan data pada layanan <em>Software as a Service</em> (SaaS), terdapat tiga pemangku kepentingan (<em>stakeholder</em>) utama yang memiliki peran dan tanggung jawab hukum berbeda:</p>
+        <ul>
+            <li><strong>Pemilik Data (<em>Data Subject</em>):</strong> Individu pemilik sah data pribadi.</li>
+            <li><strong>Pengendali Data (<em>Data Controller</em>):</strong> Organisasi yang menentukan tujuan dan cara pemrosesan data.</li>
+            <li><strong>Prosesor Data (<em>Data Processor</em>):</strong> Pihak penyedia infrastruktur atau layanan teknis yang memproses data atas nama pengendali.</li>
+        </ul>
+
+        <h2>1. Aplikasi SaaS Reservasi Hotel</h2>
+        <div class="card">
+            <ul>
+                <li><strong>Pemilik Data:</strong> Tamu hotel atau wisatawan yang melakukan pemesanan kamar (pemilik data KTP/Paspor, kontak, dan kartu pembayaran).</li>
+                <li><strong>Pengendali Data:</strong> Manajemen atau Perusahaan Pengelola Hotel yang mengumpulkan data tamu untuk kebutuhan reservasi, layanan kamar, dan program loyalitas.</li>
+                <li><strong>Prosesor Data:</strong> Penyedia server <em>cloud</em> tempat aplikasi di-host (seperti AWS/GCP) serta vendor <em>payment gateway</em>.</li>
+            </ul>
+        </div>
+
+        <h2>2. Aplikasi SaaS Sistem Informasi Rumah Sakit (SIRS)</h2>
+        <div class="card">
+            <ul>
+                <li><strong>Pemilik Data:</strong> Pasien yang berobat (pemilik sah rekam medis, riwayat penyakit, dan hasil laboratorium).</li>
+                <li><strong>Pengendali Data:</strong> Manajemen Rumah Sakit yang menetapkan kebijakan pengelolaan rekam medis untuk diagnosis dan pelaporan kesehatan.</li>
+                <li><strong>Prosesor Data:</strong> Vendor pengembang perangkat lunak SIRS berbasis <em>cloud</em> dan penyedia pusat data medis yang tersertifikasi keamanan kesehatan.</li>
+            </ul>
+        </div>
+
+        <h2>3. Aplikasi SaaS Perbankan (Core & Mobile Banking)</h2>
+        <div class="card">
+            <ul>
+                <li><strong>Pemilik Data:</strong> Nasabah perorangan maupun badan usaha (pemilik data identitas e-KYC, saldo, dan riwayat transaksi).</li>
+                <li><strong>Pengendali Data:</strong> Bank komersial atau lembaga keuangan yang mengatur kebijakan transaksi, mitigasi <em>fraud</em>, dan kepatuhan regulasi OJK/BI.</li>
+                <li><strong>Prosesor Data:</strong> Penyedia infrastruktur <em>cloud</em> khusus perbankan dan pihak ketiga penyedia layanan verifikasi biometrik/e-KYC.</li>
+            </ul>
+        </div>
+
+        <a href="index.html" class="btn-back">&larr; Kembali ke Profil</a>
+    </div>
+
+</body>
+</html>

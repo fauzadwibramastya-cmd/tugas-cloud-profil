@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Mahasiswa — Komputasi Awan & Tata Kelola Data</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #0284c7 100%);
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --accent-soft: #eff6ff;
+            --border: #e2e8f0;
+            --shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px 24px;
+        }
+
+        .nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #38bdf8;
+            display: inline-block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links a.active {
+            color: #ffffff;
+            background: var(--primary);
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: var(--bg-gradient);
+            color: #ffffff;
+            padding: 56px 24px 96px;
+            text-align: center;
+        }
+
+        .hero-inner {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.18);
+            border: 1px solid rgba(125, 211, 252, 0.4);
+            color: #e0f2fe;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 5px 14px;
+            border-radius: 999px;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            color: #dbeafe;
+            font-size: 1rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        /* Main Profile Card */
+        .main-wrap {
+            max-width: 860px;
+            margin: -56px auto 48px;
+            padding: 0 20px;
+        }
+
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .profile-header {
+            padding: 28px 32px;
+            background: linear-gradient(to right, #f8fafc, #eff6ff);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .avatar {
+            width: 68px;
+            height: 68px;
+            border-radius: 16px;
+            background: var(--bg-gradient);
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 10px 20px -6px rgba(37, 99, 235, 0.45);
+        }
+
+        .profile-title h2 {
+            font-size: 1.35rem;
+            color: var(--text-main);
+        }
+
+        .profile-title p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            padding: 28px 32px;
+        }
+
+        .info-item {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 18px;
+        }
+
+        .info-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 0.98rem;
+            font-weight: 600;
+            color: var(--text-main);
+            word-break: break-word;
+        }
+
+        .card-footer {
+            padding: 20px 32px 28px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-note {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 12px 22px;
+            border-radius: 10px;
+            box-shadow: 0 8px 18px -6px rgba(37, 99, 235, 0.55);
+            transition: transform 0.15s ease, background 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            padding: 0 20px 36px;
+        }
+
+        @media (max-width: 600px) {
+            .profile-header, .info-grid, .card-footer {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="brand">
+                <span class="brand-dot"></span>
+                <span>CLOUD &amp; DATA GOVERNANCE</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active">Profil</a>
+                <a href="tugas.html">Tugas Keamanan Data</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-inner">
+            <span class="badge">Portofolio Akademik &amp; Tugas Cloud</span>
+            <h1>Profil Mahasiswa</h1>
+            <p>Halaman utama yang memuat identitas diri serta tautan langsung menuju kajian isu keamanan dan tata kelola data pada layanan aplikasi <em>Software as a Service</em> (SaaS).</p>
+        </div>
+    </header>
+
+    <main class="main-wrap">
+        <section class="profile-card">
+            <div class="profile-header">
+                <!-- Ganti inisial di dalam .avatar sesuai nama Anda, misal: FW -->
+                <div class="avatar">MH</div>
+                <div class="profile-title">
+                    <h2>[Isi Nama Lengkap Anda]</h2>
+                    <p>NIM: [Isi NIM Anda] &bull; [Isi Program Studi Anda]</p>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Nama Lengkap</div>
+                    <div class="info-value">FAUZA DWI BRAMASTYA</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">NIM</div>
+                    <div class="info-value">240010114</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Program Studi</div>
+                    <div class="info-value">SISTEM KOMPUTER</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Alamat</div>
+                    <div class="info-value">DENPASAR TIMUR</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Email</div>
+                    <div class="info-value">fauzadwibramastya@gmail.com</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Mata Kuliah</div>
+                    <div class="info-value">KOMPUTASI AWAN</div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <span class="footer-note">Lanjut ke analisis 3 stakeholder data pada aplikasi SaaS.</span>
+                <a href="tugas.html" class="btn-primary">Buka Halaman Tugas &rarr;</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        Dibuat &amp; di-host melalui GitHub Pages &bull; Fauza Dwi Bramastya
+    </footer>
+
+</body>
+</html>

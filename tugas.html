@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumen Analisis Tata Kelola Data Cloud — SaaS</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #0284c7 100%);
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #2563eb;
+            --primary-soft: #eff6ff;
+            --border: #e2e8f0;
+            --shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.94);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px 24px;
+        }
+
+        .nav-inner {
+            max-width: 1040px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #38bdf8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links a.active {
+            color: #ffffff;
+            background: var(--primary);
+        }
+
+        /* Hero */
+        .hero {
+            background: var(--bg-gradient);
+            color: #ffffff;
+            padding: 52px 24px 92px;
+            text-align: center;
+        }
+
+        .hero-inner {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.18);
+            border: 1px solid rgba(125, 211, 252, 0.45);
+            color: #e0f2fe;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 999px;
+            margin-bottom: 14px;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.65rem, 3.8vw, 2.35rem);
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.25;
+        }
+
+        .hero p {
+            color: #dbeafe;
+            font-size: 1rem;
+            max-width: 740px;
+            margin: 0 auto;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 980px;
+            margin: -54px auto 56px;
+            padding: 0 20px;
+        }
+
+        .panel {
+            background: var(--card-bg);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            padding: 32px 36px;
+            margin-bottom: 26px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--primary-soft);
+            padding: 4px 12px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+        }
+
+        .panel h2 {
+            font-size: 1.38rem;
+            color: var(--text-main);
+            margin-bottom: 14px;
+            line-height: 1.35;
+        }
+
+        .intro-text {
+            color: var(--text-muted);
+            font-size: 0.97rem;
+            margin-bottom: 22px;
+        }
+
+        /* 3 Roles Grid */
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+        }
+
+        .role-card {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .pill {
+            display: inline-block;
+            font-size: 0.76rem;
+            font-weight: 700;
+            padding: 4px 11px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+        }
+
+        .pill-owner { background: #dcfce7; color: #166534; }
+        .pill-controller { background: #dbeafe; color: #1e40af; }
+        .pill-processor { background: #fef3c7; color: #92400e; }
+
+        .role-card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .role-card p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+        }
+
+        /* Case Study Cards */
+        .scenario-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 12px;
+            padding: 15px 18px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: #1e3a8a;
+        }
+
+        .scenario-box strong {
+            color: #172554;
+        }
+
+        .stakeholder-stack {
+            display: grid;
+            gap: 14px;
+        }
+
+        .item-box {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            border-radius: 10px;
+            padding: 16px 20px;
+        }
+
+        .item-box.owner { border-left-color: #16a34a; }
+        .item-box.controller { border-left-color: #2563eb; }
+        .item-box.processor { border-left-color: #d97706; }
+
+        .item-box h3 {
+            font-size: 1.03rem;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .item-box p {
+            font-size: 0.94rem;
+            color: var(--text-muted);
+        }
+
+        /* Matrix Table */
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-top: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 680px;
+            font-size: 0.92rem;
+        }
+
+        thead {
+            background: #0f172a;
+            color: #ffffff;
+        }
+
+        th {
+            text-align: left;
+            padding: 14px 16px;
+            font-weight: 700;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-top: 1px solid var(--border);
+            vertical-align: top;
+            color: var(--text-muted);
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        td:first-child {
+            font-weight: 700;
+            color: var(--text-main);
+            width: 19%;
+        }
+
+        /* Governance Callout */
+        .callout {
+            background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+            border: 1px solid #bfdbfe;
+            border-left: 5px solid #1d4ed8;
+            border-radius: 14px;
+            padding: 24px 28px;
+        }
+
+        .callout h3 {
+            font-size: 1.1rem;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .callout p {
+            font-size: 0.95rem;
+            color: #334155;
+        }
+
+        /* Navigation Footer */
+        .page-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #0f172a;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.94rem;
+            padding: 12px 22px;
+            border-radius: 10px;
+            transition: background 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background: #1e293b;
+        }
+
+        .doc-note {
+            font-size: 0.86rem;
+            color: #64748b;
+        }
+
+        @media (max-width: 640px) {
+            .panel {
+                padding: 22px 18px;
+            }
+            .callout {
+                padding: 20px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="brand">
+                <span class="brand-dot"></span>
+                <span>CLOUD &amp; DATA GOVERNANCE</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Profil</a>
+                <a href="tugas.html" class="active">Tugas Keamanan Data</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-inner">
+            <span class="badge">Dokumen Analisis Tata Kelola Data Cloud</span>
+            <h1>Peran Tiga Pemangku Kepentingan Pengelolaan Data pada Aplikasi Software as a Service (SaaS)</h1>
+            <p>Studi Kasus: Aplikasi Reservasi Hotel, Sistem Informasi Manajemen Rumah Sakit (SIMRS), dan Perbankan</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Bagian 1 -->
+        <section class="panel">
+            <span class="section-tag">Bagian 1</span>
+            <h2>Konsep Dasar Pemangku Kepentingan Data pada Cloud SaaS</h2>
+            <p class="intro-text">
+                Dalam ekosistem komputasi awan berbasis <em>Software as a Service</em> (SaaS), aplikasi dijalankan dan dikelola di atas infrastruktur cloud pihak ketiga, sementara organisasi pengguna menyewa layanan tersebut untuk mendukung operasional bisnisnya. Karena data mengalir lintas pihak, kerangka regulasi pelindungan data (seperti <strong>UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi / UU PDP</strong> di Indonesia maupun <strong>GDPR</strong> secara global) membagi pemangku kepentingan pengelolaan data menjadi tiga peran utama:
+            </p>
+
+            <div class="roles-grid">
+                <div class="role-card">
+                    <span class="pill pill-owner">1. Pemilik Data</span>
+                    <h3>Data Subject / Data Owner</h3>
+                    <p>Individu (subjek data) atau entitas yang identitas maupun informasinya dikumpulkan, dicatat, diproses, dan disimpan di dalam sistem. Pemilik data memiliki hak hukum atas datanya, seperti hak memperoleh informasi kejelasan tujuan pemrosesan, hak mengakses dan memperbaiki data yang keliru, serta hak menarik persetujuan atau meminta penghapusan data sesuai ketentuan peraturan perundang-undangan.</p>
+                </div>
+
+                <div class="role-card">
+                    <span class="pill pill-controller">2. Pengendali Data</span>
+                    <h3>Data Controller</h3>
+                    <p>Organisasi atau pihak yang menentukan tujuan serta cara pemrosesan data. Pengendali data memegang kendali keputusan bisnis dan hukum atas mengapa data dikumpulkan, jenis data apa saja yang dibutuhkan, siapa saja yang berhak mengaksesnya di internal organisasi, serta berapa lama data disimpan. Pengendali data memikul tanggung jawab hukum utama kepada pemilik data dan regulator.</p>
+                </div>
+
+                <div class="role-card">
+                    <span class="pill pill-processor">3. Prosesor Data</span>
+                    <h3>Data Processor</h3>
+                    <p>Pihak eksternal yang melakukan pemrosesan data atas nama dan berdasarkan instruksi resmi dari Pengendali Data. Dalam model SaaS, peran ini dijalankan oleh vendor penyedia aplikasi SaaS beserta penyedia infrastruktur cloud di bawahnya (<em>sub-processor</em>). Prosesor data dilarang menggunakan atau memonetisasi data di luar perintah tertulis dalam kontrak layanan.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian 2 -->
+        <section class="panel">
+            <span class="section-tag">Bagian 2 &bull; Studi Kasus 1</span>
+            <h2>Aplikasi SaaS Reservasi Hotel</h2>
+            <div class="scenario-box">
+                <strong>Skenario Operasional:</strong> Sebuah hotel atau jaringan perhotelan menggunakan aplikasi SaaS <em>Property Management System</em> (PMS) dan <em>Central Reservation System</em> (CRS) berbasis cloud untuk mengelola pemesanan kamar online, proses <em>check-in/check-out</em>, penagihan, serta program loyalitas pelanggan.
+            </div>
+
+            <div class="stakeholder-stack">
+                <div class="item-box owner">
+                    <h3>Pemilik Data (Tamu Hotel &amp; Calon Tamu)</h3>
+                    <p>Individu yang melakukan pemesanan kamar atau menginap di hotel. Jenis data yang melekat meliputi nama lengkap, nomor identitas (KTP/Paspor), alamat email, nomor telepon, detail kartu kredit/pembayaran, jadwal menginap, hingga preferensi khusus (misalnya tipe tempat tidur atau riwayat kunjungan). Tamu berhak mengetahui kebijakan privasi hotel dan meminta penghapusan data pemasaran jika tidak ingin menerima promosi.</p>
+                </div>
+
+                <div class="item-box controller">
+                    <h3>Pengendali Data (Pihak Manajemen Hotel / Operator Hotel)</h3>
+                    <p>Perusahaan pengelola hotel yang menjadi tujuan transaksi tamu. Hotel menentukan tujuan pengumpulan data (memverifikasi identitas tamu saat <em>check-in</em>, memproses pembayaran, memenuhi kewajiban pelaporan tamu kepada pihak berwenang, dan menjalankan program loyalitas). Hotel juga menetapkan kebijakan retensi berapa lama riwayat menginap disimpan.</p>
+                </div>
+
+                <div class="item-box processor">
+                    <h3>Prosesor Data (Penyedia SaaS PMS/CRS &amp; Cloud Infrastructure Host)</h3>
+                    <p>Vendor aplikasi reservasi hotel berbasis cloud (beserta penyedia server cloud tempat database aplikasi berada). Penyedia SaaS bertugas menyediakan mesin pemesanan, menyimpan database transaksi secara terenkripsi, mengirimkan konfirmasi email otomatis, dan menjaga ketersediaan server berdasarkan instruksi hotel dalam <em>Data Processing Agreement</em> (DPA). Vendor tidak boleh menjual atau memakai data tamu hotel untuk kepentingan pihak lain.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian 3 -->
+        <section class="panel">
+            <span class="section-tag">Bagian 3 &bull; Studi Kasus 2</span>
+            <h2>Aplikasi SaaS SIMRS (Sistem Informasi Manajemen Rumah Sakit)</h2>
+            <div class="scenario-box">
+                <strong>Skenario Operasional:</strong> Rumah sakit menyewa layanan SIMRS berbasis cloud untuk mengintegrasikan pendaftaran pasien, rekam medis elektronik (RME), jadwal dokter, hasil laboratorium/radiologi, farmasi, serta klaim penjaminan kesehatan.
+            </div>
+
+            <div class="stakeholder-stack">
+                <div class="item-box owner">
+                    <h3>Pemilik Data (Pasien / Wali Sah Pasien)</h3>
+                    <p>Pasien yang menerima pelayanan kesehatan (atau orang tua/wali sah apabila pasien merupakan anak di bawah umur atau dalam kondisi tidak cakap hukum). Data yang dikelola mencakup identitas kependudukan, riwayat alergi dan penyakit, catatan diagnosis dokter, hasil pemeriksaan penunjang, resep obat, serta riwayat tindakan medis. Karena menyangkut data kesehatan yang bersifat spesifik/sensitif, perlindungan hak dan kerahasiaannya diatur sangat ketat.</p>
+                </div>
+
+                <div class="item-box controller">
+                    <h3>Pengendali Data (Rumah Sakit / Fasilitas Pelayanan Kesehatan)</h3>
+                    <p>Institusi rumah sakit sebagai penyelenggara layanan medis. Rumah sakit menentukan tujuan pemrosesan data untuk kepentingan diagnosis, pengobatan, keselamatan pasien, administrasi klaim BPJS/asuransi, dan pelaporan kesehatan nasional. Rumah sakit juga mengatur matriks hak akses internal (misalnya dokter pemeriksa dapat melihat riwayat klinis lengkap, sedangkan staf kasir hanya melihat rincian tagihan) serta menjamin kepatuhan terhadap regulasi rekam medis.</p>
+                </div>
+
+                <div class="item-box processor">
+                    <h3>Prosesor Data (Vendor Penyedia SaaS SIMRS &amp; Penyedia Cloud)</h3>
+                    <p>Perusahaan teknologi kesehatan yang mengembangkan dan mengoperasikan platform SIMRS di cloud. Vendor memproses data klinis dan administratif berdasarkan instruksi rumah sakit, meliputi pemeliharaan basis data, pencadangan (<em>backup</em>) berkala, pencatatan log audit (<em>audit trail</em>) setiap akses pengguna, dan penerapan standar enkripsi. Vendor SaaS tidak memiliki wewenang klinis maupun hak untuk menambang data medis pasien untuk tujuan komersial mandiri.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian 4 -->
+        <section class="panel">
+            <span class="section-tag">Bagian 4 &bull; Studi Kasus 3</span>
+            <h2>Aplikasi SaaS Perbankan (Core Banking / Layanan Perbankan Digital)</h2>
+            <div class="scenario-box">
+                <strong>Skenario Operasional:</strong> Bank atau lembaga jasa keuangan mengadopsi platform SaaS berbasis cloud untuk menjalankan modul perbankan digital, manajemen rekening (<em>core banking</em>), analisis skor kredit, atau deteksi penipuan (<em>fraud detection</em>) secara <em>real-time</em>.
+            </div>
+
+            <div class="stakeholder-stack">
+                <div class="item-box owner">
+                    <h3>Pemilik Data (Nasabah Bank)</h3>
+                    <p>Nasabah perorangan (maupun subjek data yang terkait dengan nasabah badan usaha) yang menggunakan produk simpanan, pinjaman, atau layanan transaksi bank. Data yang terlibat meliputi data verifikasi identitas (KYC), data biometrik (pengenalan wajah/sidik jari), nomor rekening, saldo, mutasi transaksi keuangan, serta riwayat kelayakan kredit.</p>
+                </div>
+
+                <div class="item-box controller">
+                    <h3>Pengendali Data (Bank / Lembaga Jasa Keuangan)</h3>
+                    <p>Entitas bank yang berizin dan diawasi oleh otoritas sektor keuangan (seperti OJK dan Bank Indonesia). Bank menentukan tujuan pemrosesan data untuk pembukaan rekening, eksekusi transaksi keuangan, penilaian risiko kredit, penerapan prinsip Anti Pencucian Uang dan Pencegahan Pendanaan Terorisme (APU-PPT), serta pemenuhan ketentuan rahasia bank.</p>
+                </div>
+
+                <div class="item-box processor">
+                    <h3>Prosesor Data (Penyedia Solusi SaaS Perbankan &amp; Cloud Provider)</h3>
+                    <p>Penyedia platform teknologi finansial/SaaS perbankan beserta penyedia pusat data cloud yang memenuhi standar kepatuhan sektor keuangan. Prosesor menjalankan perangkat lunak pencatatan transaksi (<em>ledger</em>), algoritma deteksi anomali transaksi, dan infrastruktur komputasi sesuai spesifikasi kontrak dengan bank. Prosesor wajib menerapkan isolasi data antar-penyewa (<em>tenant isolation</em>), enkripsi tingkat tinggi, dan tunduk pada audit keamanan oleh bank maupun regulator keuangan.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian 5 -->
+        <section class="panel">
+            <span class="section-tag">Bagian 5</span>
+            <h2>Matriks Perbandingan Tiga Bidang SaaS</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Bidang SaaS</th>
+                            <th>Pemilik Data (Data Subject)</th>
+                            <th>Pengendali Data (Data Controller)</th>
+                            <th>Prosesor Data (Data Processor)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1. Reservasi Hotel</td>
+                            <td>Tamu hotel dan calon tamu yang melakukan reservasi.</td>
+                            <td>Pihak manajemen hotel / operator jaringan hotel yang menentukan tujuan layanan &amp; retensi data.</td>
+                            <td>Vendor aplikasi SaaS PMS/CRS beserta penyedia infrastruktur server cloud.</td>
+                        </tr>
+                        <tr>
+                            <td>2. SIMRS (Rumah Sakit)</td>
+                            <td>Pasien (atau wali sah pasien untuk data rekam medis).</td>
+                            <td>Rumah sakit / fasilitas pelayanan kesehatan yang menyelenggarakan layanan medis &amp; mengatur akses klinis.</td>
+                            <td>Vendor penyedia platform SaaS SIMRS beserta penyedia cloud hosting yang terenkripsi.</td>
+                        </tr>
+                        <tr>
+                            <td>3. Perbankan</td>
+                            <td>Nasabah bank (perorangan maupun perwakilan nasabah korporasi).</td>
+                            <td>Bank / lembaga jasa keuangan berizin yang menetapkan tujuan transaksi, KYC, dan kepatuhan regulasi.</td>
+                            <td>Penyedia solusi SaaS perbankan (core/digital banking) dan penyedia infrastruktur cloud.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Bagian 6 -->
+        <section class="panel">
+            <span class="section-tag">Bagian 6</span>
+            <h2>Prinsip Tata Kelola dan Pembagian Tanggung Jawab</h2>
+            <div class="callout">
+                <h3>Catatan Penting: Shared Responsibility Model &amp; Data Processing Agreement (DPA)</h3>
+                <p>
+                    Dalam layanan SaaS berbasis cloud, hubungan antara Pengendali Data (Hotel, Rumah Sakit, Bank) dan Prosesor Data (Vendor SaaS) wajib diikat melalui <strong>Data Processing Agreement (DPA)</strong>. Berdasarkan prinsip <strong>Shared Responsibility Model</strong>, vendor SaaS bertanggung jawab mengamankan infrastruktur cloud, jaringan, dan ketersediaan platform, sementara Pengendali Data bertanggung jawab mengatur hak akses pengguna internal, klasifikasi data, serta memastikan dasar pemrosesan yang sah dari Pemilik Data.
+                </p>
+            </div>
+
+            <div class="page-actions">
+                <a href="index.html" class="btn-back">&larr; Kembali ke Halaman Profil</a>
+                <span class="doc-note">Sumber materi: Dokumen Analisis Tata Kelola Data Cloud</span>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
